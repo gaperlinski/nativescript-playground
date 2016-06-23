@@ -4,3 +4,7 @@ StackLayout {
 Button {
   height: 40;
 }
+TextField {
+  border-width: 1;
+  border-color: black;
+}
