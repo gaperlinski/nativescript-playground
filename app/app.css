@@ -2,9 +2,15 @@ Page {
   background-color: white;
   font-size: 15;
 }
+
 TextField {
   padding: 10;
   font-size: 13;
+}
+
+ActionBar {
+  background-color: black;
+  color: white;
 }
 
 .small-spacing {

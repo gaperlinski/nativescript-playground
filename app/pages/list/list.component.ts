@@ -2,6 +2,11 @@ import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
 import {Grocery} from "../../shared/grocery/grocery";
 import {GroceryListService} from "../../shared/grocery/grocery-list.service";
 import {TextField} from "ui/text-field";
+import {Color} from "color";
+
+var socialShare = require("nativescript-social-share");
+declare var android;
+declare var CGSizeMake: any;
 
 @Component({
   selector: "list",
@@ -9,7 +14,9 @@ import {TextField} from "ui/text-field";
   styleUrls: ["pages/list/list-common.css", "pages/list/list.css"],
   providers: [GroceryListService]
 })
+
 export class ListPage implements OnInit {
+
   groceryList: Array<Grocery> = [];
   grocery: string = "";
   isLoading = false;
@@ -38,7 +45,10 @@ export class ListPage implements OnInit {
 
     // Dismiss the keyboard
     let textField = <TextField>this.groceryTextField.nativeElement;
-    textField.dismissSoftInput();
+    textField.ios.layer.shadowOpacity = 1.0;
+    textField.ios.layer.shadowRadius = 0.0;
+    textField.ios.layer.shadowColor = new Color('#000000').ios.CGColor;
+    textField.ios.layer.shadowOffset = CGSizeMake(0.0, -1.0);
 
     this._groceryListService.add(this.grocery)
       .subscribe(
@@ -54,5 +64,14 @@ export class ListPage implements OnInit {
           this.grocery = "";
         }
       )
+  }
+
+  share() {
+    let list = [];
+    for (let i = 0, size = this.groceryList.length; i < size ; i++) {
+      list.push(this.groceryList[i].name);
+    }
+    let listString = list.join(", ").trim();
+    socialShare.shareText(listString);
   }
 }

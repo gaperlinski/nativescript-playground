@@ -26,6 +26,10 @@ export class LoginPage implements OnInit {
 	  this.page.backgroundImage = this.page.ios ? "res://bg_login.jpg" : "res://bg_login";
 	}
   submit() {
+    if (!this.user.isValidEmail()) {
+      alert("Enter a valid email address.");
+      return;
+    }
 	  if (this.isLoggingIn) {
 	    this.login();
 	  } else {
@@ -33,11 +37,12 @@ export class LoginPage implements OnInit {
 	  }
 	}
 	login() {
-  this._userService.login(this.user)
-    .subscribe(
-      () => this._router.navigate(["List"]),
-      (error) => alert("Unfortunately we could not find your account.")
-    );
+    this._router.navigate(["List"]);
+  // this._userService.login(this.user)
+  //   .subscribe(
+  //     () => this._router.navigate(["List"]),
+  //     (error) => alert("Unfortunately we could not find your account.")
+  //   );
 	}
   signUp() {
 	  this._userService.register(this.user)

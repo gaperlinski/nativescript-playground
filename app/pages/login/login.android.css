@@ -1,3 +1,7 @@
 StackLayout {
   height: 340;
 }
+
+.submit-button {
+  opacity: 1;
+}
